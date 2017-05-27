@@ -2,7 +2,7 @@
 
 [![NPM version](https://img.shields.io/npm/v/gist-it.svg?style=flat)](https://npmjs.com/package/gist-it) [![NPM downloads](https://img.shields.io/npm/dm/gist-it.svg?style=flat)](https://npmjs.com/package/gist-it) [![CircleCI](https://circleci.com/gh/egoist/gist-it/tree/master.svg?style=shield)](https://circleci.com/gh/egoist/gist-it/tree/master)  [![donate](https://img.shields.io/badge/$-donate-ff69b4.svg?maxAge=2592000&style=flat)](https://github.com/egoist/donate)
 
-![gist-it](https://cloud.githubusercontent.com/assets/8784712/26520655/68365838-4309-11e7-84a1-44c75ed4e268.gif)
+![gist-it](https://cloud.githubusercontent.com/assets/8784712/26520814/79482fea-430c-11e7-97f4-6990c2d8f09f.gif)
 
 ## Why do we need this?
 

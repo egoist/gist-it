@@ -3,6 +3,7 @@
 const util = require('util')
 const yargs = require('yargs')
 const ora = require('ora')
+const tildify = require('tildify')
 const pkg = require('../package')
 const main = require('../lib')
 const config = require('../lib/config')
@@ -49,8 +50,10 @@ if (!filepath) {
   process.exit(1)
 }
 
+const maxWidth = process.stderr.columns - 5
+
 const spinner = ora({
-  text: `Uploading ${filepath}...`,
+  text: `Uploading ${tildify(filepath)}`.slice(0, maxWidth),
   spinner: 'dots10'
 }).start()
 
