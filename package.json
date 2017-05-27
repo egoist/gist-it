@@ -1,0 +1,43 @@
+{
+  "name": "gist-it",
+  "version": "0.0.0",
+  "description": "Create a GitHub Gist from a text file.",
+  "repository": {
+    "url": "egoist/gist-it",
+    "type": "git"
+  },
+  "main": "lib/index.js",
+  "bin": "bin/cli.js",
+  "files": [
+    "bin",
+    "lib"
+  ],
+  "scripts": {
+    "test": "jest && npm run lint",
+    "lint": "xo"
+  },
+  "author": "egoist <0x142857@gmail.com>",
+  "license": "MIT",
+  "jest": {
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "axios": "^0.16.1",
+    "co": "^4.6.0",
+    "conf": "^1.1.1",
+    "fs-extra": "^3.0.1",
+    "ora": "^1.2.0",
+    "yargs": "^7.1.0"
+  },
+  "devDependencies": {
+    "eslint-config-rem": "^3.0.0",
+    "jest-cli": "^19.0.0",
+    "xo": "^0.18.0"
+  },
+  "xo": {
+    "extends": "rem",
+    "envs": [
+      "jest"
+    ]
+  }
+}
