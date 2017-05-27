@@ -29,8 +29,7 @@ const argv = yargs
   .example('gist-it npm-log.log')
   .example('gist-it a.js b.css c.html --desc "Example Website"')
   .version(pkg.version)
-  .help()
-  .argv
+  .help().argv
 
 if (argv.setToken) {
   config.set('token', argv.setToken)
@@ -58,33 +57,36 @@ if (files.length === 0) {
 
 const maxWidth = process.stderr.columns - 5
 
-const fileList = files
-  .map(filepath => path.basename(filepath))
-  .join(', ')
+const fileList = files.map(filepath => path.basename(filepath)).join(', ')
 
 const spinner = ora({
   text: `Uploading ${fileList}`.slice(0, maxWidth),
   spinner: 'dots10'
 }).start()
 
-const options = Object.assign({
-  files,
-  token: config.get('token')
-}, argv)
+const options = Object.assign(
+  {
+    files,
+    token: config.get('token')
+  },
+  argv
+)
 
 main(options)
-.then(data => {
-  spinner.succeed(data.html_url)
-})
-.catch(err => {
-  spinner.stop()
-  if (err.response) {
-    console.error(util.inspect(err.response.data, {
-      colors: true,
-      depth: null
-    }))
-  } else {
-    console.error(err.stack)
-  }
-  process.exit(1)
-})
+  .then(data => {
+    spinner.succeed(data.html_url)
+  })
+  .catch(err => {
+    spinner.stop()
+    if (err.response) {
+      console.error(
+        util.inspect(err.response.data, {
+          colors: true,
+          depth: null
+        })
+      )
+    } else {
+      console.error(err.stack)
+    }
+    process.exit(1)
+  })
