@@ -25,7 +25,7 @@ gist-it lib/foo.js
 gist-it --help
 ```
 
-By default the gist will be publised **anonymously**, to publish it under your account, you need to generate an access token at https://github.com/settings/tokens/new, remember to select `gist` scope:
+By default the gist will be published **anonymously**, to publish it under your account, you need to generate an access token at https://github.com/settings/tokens/new, remember to select `gist` scope:
 
 ![gist-scope](https://ooo.0o0.ooo/2017/05/27/592951a01af2b.png)
 
