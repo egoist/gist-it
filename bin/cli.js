@@ -11,6 +11,7 @@ const config = require('../lib/config')
 const argv = yargs
   .alias('v', 'version')
   .alias('h', 'help')
+  .alias('desc', 'description')
   .option('set-token', {
     desc: 'Set personal access token for GitHub'
   })
@@ -19,6 +20,9 @@ const argv = yargs
   })
   .option('get-token', {
     desc: 'Output current access token'
+  })
+  .option('description', {
+    desc: 'Add description for the gist'
   })
   .string('set-token')
   .boolean(['remove-token', 'get-token'])
