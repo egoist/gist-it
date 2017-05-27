@@ -18,7 +18,7 @@ npm i -g gist-it
 
 ## Usage
 
-```js
+```bash
 gist-it ./npm.log
 gist-it lib/foo.js
 
