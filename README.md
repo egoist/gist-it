@@ -8,6 +8,10 @@
 
 When I ran into some issues and got a `error.log`, the best way to report bugs is `gist-it error.log` and post the link to it on the issue you created.
 
+## Download executable
+
+[Here](https://github.com/egoist/gist-it/releases)'s the [pkg](https://github.com/zeit/pkg)-ed version of this library, which means you can use it without Node.js installed.
+
 ## Install
 
 ```bash
