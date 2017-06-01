@@ -13,7 +13,6 @@ const config = require('../lib/config')
 const argv = yargs
   .alias('v', 'version')
   .alias('h', 'help')
-  .alias('desc', 'description')
   .option('set-token', {
     desc: 'Set personal access token for GitHub'
   })
@@ -24,10 +23,18 @@ const argv = yargs
     desc: 'Output current access token'
   })
   .option('description', {
-    desc: 'Add description for the gist'
+    desc: 'Add description for the gist',
+    alias: 'desc'
   })
-  .string('set-token')
-  .boolean(['remove-token', 'get-token'])
+  .option('id', {
+    desc: 'Existing gist id, used this to update existing gist',
+    alias: 'i'
+  })
+  .option('public', {
+    desc: 'Publish the gist publicly'
+  })
+  .string(['set-token', 'filename', 'id'])
+  .boolean(['remove-token', 'get-token', 'public'])
   .example('gist-it npm-log.log')
   .example('gist-it a.js b.css c.html --desc "Example Website"')
   .example('gist-it "*.js"')
@@ -60,13 +67,15 @@ if (files.length === 0) {
 
 let spinner
 
-co(function * () {
+co(function*() {
   const maxWidth = process.stderr.columns - 5
 
   files = yield globby(files)
 
   if (files.length === 0) {
-    throw new Error(`Expect at least one file to publish but got "${JSON.stringify(files)}"!`)
+    throw new Error(
+      `Expect at least one file to publish but got "${JSON.stringify(files)}"!`
+    )
   }
 
   const fileList = files.map(filepath => path.basename(filepath)).join(', ')
@@ -83,6 +92,10 @@ co(function * () {
     },
     argv
   )
+
+  if (options.id && !options.token) {
+    throw new Error('You can edit anonymous gist, please set a private token!')
+  }
 
   const data = yield main(options)
   spinner.succeed(data.html_url)
