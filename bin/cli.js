@@ -4,6 +4,8 @@ const util = require('util')
 const path = require('path')
 const yargs = require('yargs')
 const ora = require('ora')
+const co = require('co')
+const globby = require('globby')
 const pkg = require('../package')
 const main = require('../lib')
 const config = require('../lib/config')
@@ -28,6 +30,7 @@ const argv = yargs
   .boolean(['remove-token', 'get-token'])
   .example('gist-it npm-log.log')
   .example('gist-it a.js b.css c.html --desc "Example Website"')
+  .example('gist-it "*.js"')
   .version(pkg.version)
   .help().argv
 
@@ -48,45 +51,52 @@ if (argv.getToken) {
   process.exit()
 }
 
-const files = argv._
+let files = argv._
 if (files.length === 0) {
   console.error('The path to a text file is required!')
   console.error('eg: gist-it ./npm.log')
   process.exit(1)
 }
 
-const maxWidth = process.stderr.columns - 5
+let spinner
 
-const fileList = files.map(filepath => path.basename(filepath)).join(', ')
+co(function * () {
+  const maxWidth = process.stderr.columns - 5
 
-const spinner = ora({
-  text: `Uploading ${fileList}`.slice(0, maxWidth),
-  spinner: 'dots10'
-}).start()
+  files = yield globby(files)
 
-const options = Object.assign(
-  {
-    files,
-    token: config.get('token')
-  },
-  argv
-)
+  if (files.length === 0) {
+    throw new Error(`Expect at least one file to publish but got "${JSON.stringify(files)}"!`)
+  }
 
-main(options)
-  .then(data => {
-    spinner.succeed(data.html_url)
-  })
-  .catch(err => {
-    spinner.stop()
-    if (err.response) {
-      console.error(
-        util.inspect(err.response.data, {
-          colors: true,
-          depth: null
-        })
-      )
-    } else {
-      console.error(err.stack)
-    }
-    process.exit(1)
-  })
+  const fileList = files.map(filepath => path.basename(filepath)).join(', ')
+
+  spinner = ora({
+    text: `Uploading ${fileList}`.slice(0, maxWidth),
+    spinner: 'dots10'
+  }).start()
+
+  const options = Object.assign(
+    {
+      files,
+      token: config.get('token')
+    },
+    argv
+  )
+
+  const data = yield main(options)
+  spinner.succeed(data.html_url)
+}).catch(err => {
+  spinner && spinner.stop()
+  if (err.response) {
+    console.error(
+      util.inspect(err.response.data, {
+        colors: true,
+        depth: null
+      })
+    )
+  } else {
+    console.error(err.stack)
+  }
+  process.exit(1)
+})

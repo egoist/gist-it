@@ -24,7 +24,10 @@ npm i -g gist-it
 
 ```bash
 gist-it ./npm.log
-gist-it lib/foo.js
+gist-it lib/foo.js bin/bar.js
+
+# or even glob
+gist-it "*.js" "css/*.css"
 
 gist-it --help
 ```
