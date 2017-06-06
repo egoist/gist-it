@@ -6,6 +6,7 @@ const yargs = require('yargs')
 const ora = require('ora')
 const co = require('co')
 const globby = require('globby')
+const clipboardy = require('clipboardy')
 const pkg = require('../package')
 const main = require('../lib')
 const config = require('../lib/config')
@@ -101,7 +102,14 @@ co(function*() {
   }
 
   const data = yield main(options)
-  spinner.succeed(data.html_url)
+  let msg = data.html_url
+  try {
+    clipboardy.writeSync(data.html_url)
+    msg += ' (copied)'
+  } catch (err) {
+    // Ignore errors
+  }
+  spinner.succeed(msg)
 }).catch(err => {
   spinner && spinner.stop()
   if (err.response) {
