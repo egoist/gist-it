@@ -13,6 +13,9 @@ const config = require('../lib/config')
 const argv = yargs
   .alias('v', 'version')
   .alias('h', 'help')
+  .option('dot', {
+    desc: 'Include dot files when using glob patterns'
+  })
   .option('set-token', {
     desc: 'Set personal access token for GitHub'
   })
@@ -70,7 +73,7 @@ let spinner
 co(function*() {
   const maxWidth = process.stderr.columns - 5
 
-  files = yield globby(files)
+  files = yield globby(files, { dot: argv.dot })
 
   if (files.length === 0) {
     throw new Error(
