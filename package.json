@@ -12,6 +12,7 @@
     "bin",
     "lib"
   ],
+  "keywords": ["gist", "share", "code", "github"],
   "scripts": {
     "test": "jest && npm run lint",
     "lint": "xo"
