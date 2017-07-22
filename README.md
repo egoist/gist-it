@@ -38,6 +38,18 @@ Then set it in `gist-it`:
 gist-it --set-token $the_token_you_just_generated
 ```
 
+To use a token without storing it:
+
+```bash
+gist-it --token $your_token
+```
+
+To not to use stored token for once:
+
+```bash
+gist-it --no-token
+```
+
 ### Update an exising gist
 
 To update an exisitng gist, append the command with `--id existing-gist-id`.
