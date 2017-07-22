@@ -34,13 +34,13 @@ By default the gist will be published **anonymously**, to publish it under your 
 
 ![gist-scope](https://ooo.0o0.ooo/2017/05/27/592951a01af2b.png)
 
-Then set it in `gist-it`:
+Then store it in `gist-it`:
 
 ```bash
 gist-it --set-token $the_token_you_just_generated
 ```
 
-To use a token without storing it:
+Or use a token without storing it:
 
 ```bash
 gist-it --token $your_token
