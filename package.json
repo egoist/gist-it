@@ -1,6 +1,6 @@
 {
   "name": "gist-it",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Create a GitHub Gist from a text file.",
   "repository": {
     "url": "egoist/gist-it",
@@ -12,7 +12,12 @@
     "bin",
     "lib"
   ],
-  "keywords": ["gist", "share", "code", "github"],
+  "keywords": [
+    "gist",
+    "share",
+    "code",
+    "github"
+  ],
   "scripts": {
     "test": "jest && npm run lint",
     "lint": "xo"
