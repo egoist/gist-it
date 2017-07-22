@@ -5,11 +5,15 @@ const path = require('path')
 const yargs = require('yargs')
 const ora = require('ora')
 const co = require('co')
+const chalk = require('chalk')
 const globby = require('globby')
 const clipboardy = require('clipboardy')
+const update = require('update')
 const pkg = require('../package')
 const main = require('../lib')
 const config = require('../lib/config')
+
+update({ pkg }).notify()
 
 const argv = yargs
   .alias('v', 'version')
@@ -109,7 +113,11 @@ co(function*() {
   } catch (err) {
     // Ignore errors
   }
-  spinner.succeed(msg)
+  spinner.succeed(`${chalk.green(argv.id ? 'Updated:' : 'Published:')} ${msg}`)
+
+  if (!argv.id && options.token) {
+    console.log(chalk.dim(`You can update this gist by running:\ngist-it ${process.argv.slice(2).join(' ')} --id ${data.id}`))
+  }
 }).catch(err => {
   spinner && spinner.stop()
   if (err.response) {

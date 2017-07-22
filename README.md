@@ -38,6 +38,9 @@ Then set it in `gist-it`:
 gist-it --set-token $the_token_you_just_generated
 ```
 
+### Update an exising gist
+
+To update an exisitng gist, append the command with `--id existing-gist-id`.
 
 ## Contributing
 
