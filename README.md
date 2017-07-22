@@ -6,7 +6,9 @@
 
 ## Why do we need this?
 
-When I ran into some issues and got a `error.log`, the best way to report bugs is `gist-it error.log` and post the link to it on the issue you created.
+**A.** When I ran into some issues and got a `error.log`, the best way to report bugs is `gist-it error.log` and post the link to it on the issue you created.
+
+**B.** Somebody asked me to provide a repo to reproduce a bug, so I made it locally and upload it to gist in order to share with him without creating a repo for that.
 
 ## Install
 
