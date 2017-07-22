@@ -8,7 +8,7 @@ const co = require('co')
 const chalk = require('chalk')
 const globby = require('globby')
 const clipboardy = require('clipboardy')
-const update = require('update')
+const update = require('update-notifier')
 const pkg = require('../package')
 const main = require('../lib')
 const config = require('../lib/config')
@@ -116,7 +116,13 @@ co(function*() {
   spinner.succeed(`${chalk.green(argv.id ? 'Updated:' : 'Published:')} ${msg}`)
 
   if (!argv.id && options.token) {
-    console.log(chalk.dim(`You can update this gist by running:\ngist-it ${process.argv.slice(2).join(' ')} --id ${data.id}`))
+    console.log(
+      chalk.dim(
+        `You can update this gist by running:\ngist-it ${process.argv
+          .slice(2)
+          .join(' ')} --id ${data.id}`
+      )
+    )
   }
 }).catch(err => {
   spinner && spinner.stop()
